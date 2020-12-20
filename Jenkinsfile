@@ -45,7 +45,7 @@ pipeline {
     }
     success {
       echo 'Pipeline Successful'
-      sh 'ssh ubuntu@54.236.25.155 "kubectl set image deployments/coursework2 coursework-2-b7xlv=jocatalin/amcint208/coursework_2:${env.BUILD_NUMBER}"'
+      sh "ssh ubuntu@54.236.25.155 'kubectl set image deployments/coursework2 coursework-2-b7xlv=jocatalin/amcint208/coursework_2:${env.BUILD_NUMBER}'"
     }
     failure {
       echo 'Pipeline Not Successful'
