@@ -20,17 +20,17 @@ pipeline {
       steps {
         script {
           docker.withRegistry('', 'DockerHub') {
-           app.push("$(env.BUILD_NUMBER)") 
+            app.push("${env.BUILD_NUMBER}") 
           }
         }
       }
     }
-    stage('4. SonarQube') {
+/*    stage('4. SonarQube') {
       
     }
     stage('5. Deploy to Kubernetes') {
       
-    }
+    }*/
   }
   post {
     always {
