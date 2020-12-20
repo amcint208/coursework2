@@ -1,15 +1,46 @@
 pipeline {
+  environment {
+    
+  }
   agent any
   stages {
-    stage('mystage'){
+    stage('1. Clone Repository'){
       steps {
-        sh 'ls -la
+        checkout scm
       }
     }
-    stage('build') {
+    stage('2. Build Image') {
       steps {
-        sh 'ls'
+        script {
+         app = docker.build("amcint208/coursework_2") 
+        }
       }
+    }
+    stage('3. Push Image') {
+      steps {
+        script {
+          docker.withRegistry('', 'DockerHub') {
+           app.push("$(env.BUILD_NUMBER)") 
+          }
+        }
+      }
+    }
+    stage('4. SonarQube') {
+      
+    }
+    stage('5. Deploy to Kubernetes') {
+      
+    }
+  }
+  post {
+    always {
+     echo 'Pipeline Complete' 
+    }
+    success {
+      echo 'Pipeline Successful'
+    }
+    failure {
+      echo 'Pipeline Not Successful'
     }
   }
 }
